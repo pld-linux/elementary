@@ -1,7 +1,6 @@
 # Conditional build:
 %bcond_without	static_libs	# don't build static library
 
-%define		snapdate	2010-06-27
 %define		svn		-ver-svn-06
 Summary:	Basic widget set
 Summary(pl.UTF-8):	Zestaw prostych widżetów
@@ -10,7 +9,7 @@ Version:	0.7.0.49898
 Release:	0.1
 License:	LGPL v2.1
 Group:		Libraries
-Source0:	http://download.enlightenment.org/snapshots/%{snapdate}/%{name}-%{version}.tar.bz2
+Source0:	http://download.enlightenment.org/snapshots/LATEST/%{name}-%{version}.tar.bz2
 # Source0-md5:	e388b8bfb1e09982dd881a075870b914
 URL:		http://enlightenment.org/p.php?p=about/libs/eina
 Requires:	%{name}-libs = %{version}-%{release}
