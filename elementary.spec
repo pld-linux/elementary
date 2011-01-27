@@ -116,6 +116,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/elementary-0/Elementary.h
 %{_includedir}/elementary-0/Elementary_Cursor.h
 %{_includedir}/elementary-0/elm_widget.h
+%dir %{_libdir}/edje/modules
+%dir %{_libdir}/edje/modules/elm
+%dir %{_libdir}/edje/modules/elm/linux-gnu-i686-1.0.0
 %{_libdir}/edje/modules/elm/linux-gnu-i686-1.0.0/module.la
 %{_libdir}/elementary/modules/test_entry/linux-gnu-i686-0.7.0/module.la
 %{_libdir}/elementary_testql.la
