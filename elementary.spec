@@ -22,6 +22,7 @@ URL:		http://enlightenment.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	evas-loader-jpeg >= %{evas_ver}
+BuildRequires:	libtool
 Requires:	%{name}-libs = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
