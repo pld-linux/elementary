@@ -1,26 +1,36 @@
+#
+# TODO: - BRs
+#	- plugins in separate packages
+#
 # Conditional build:
 %bcond_without	static_libs	# don't build static library
+#
 
-%define		svn		-ver-svn-06
+%define		svn		-ver-pre-svn-09
+%define		evas_ver	0.9.9.49898
+
 Summary:	Basic widget set
 Summary(pl.UTF-8):	Zestaw prostych widżetów
 Name:		elementary
-Version:	0.7.0.49898
+Version:	0.7.0.55225
 Release:	0.1
-License:	LGPL v2.1
+License:	LGPL v2.1+
 Group:		Libraries
 Source0:	http://download.enlightenment.org/snapshots/LATEST/%{name}-%{version}.tar.bz2
-# Source0-md5:	e388b8bfb1e09982dd881a075870b914
-URL:		http://enlightenment.org/p.php?p=about/libs/eina
+# Source0-md5:	0c4460fe656c8dafc42abee76c33975c
+URL:		http://enlightenment.org/
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	evas-loader-jpeg >= %{evas_ver}
 Requires:	%{name}-libs = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-Elementary - a basic widget set that is easy to use based on EFL for mobile
-touch-screen devices.
+Elementary - a basic widget set that is easy to use based on EFL for
+mobile touch-screen devices.
 
 %description -l pl.UTF-8
-Elementary - zestaw prostych, łatwych w użyciu widżetów oparty na EFL
+Elementary - zestaw prostych, łatwych w użyciu widżetów, oparty na EFL
 dla urządzeń mobilnych.
 
 %package devel
@@ -94,18 +104,19 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/elementary_run
 %attr(755,root,root) %{_bindir}/elementary_test
 %attr(755,root,root) %{_bindir}/elementary_testql
-%{_datadir}/applications/elementary_config.desktop
-%{_datadir}/applications/elementary_test.desktop
+%{_desktopdir}/elementary_config.desktop
+%{_desktopdir}/elementary_test.desktop
 %{_datadir}/elementary
 %{_iconsdir}/elementary.png
 
 %files devel
 %defattr(644,root,root,755)
-%{_includedir}/Elementary.h
-%dir %{_includedir}/elementary
-%{_includedir}/elementary/elementary_config.h
-%{_libdir}/edje/elm.la
-%{_libdir}/elementary/modules/test_entry/linux-gnu-i686-ver-svn-06/module.la
+%dir %{_includedir}/elementary-0
+%{_includedir}/elementary-0/Elementary.h
+%{_includedir}/elementary-0/Elementary_Cursor.h
+%{_includedir}/elementary-0/elm_widget.h
+%{_libdir}/edje/modules/elm/linux-gnu-i686-1.0.0/module.la
+%{_libdir}/elementary/modules/test_entry/linux-gnu-i686-0.7.0/module.la
 %{_libdir}/elementary_testql.la
 %{_libdir}/libelementary.la
 %{_libdir}/libelementary.so
@@ -113,18 +124,20 @@ rm -rf $RPM_BUILD_ROOT
 
 %files libs
 %defattr(644,root,root,755)
-%attr(755,root,roo) %{_libdir}/edje/elm.so
+#%%attr(755,root,roo) %{_libdir}/edje/elm.so
 %dir %{_libdir}/elementary
 %dir %{_libdir}/elementary/modules
 %dir %{_libdir}/elementary/modules/test_entry
 %dir %{_libdir}/elementary/modules/test_entry/linux-gnu-*
-%attr(755,root,root) %{_libdir}/elementary/modules/test_entry/linux-gnu-*%{svn}/module.so
+%{_libdir}/edje/modules/elm/linux-gnu-i686-1.0.0/module.so
+%{_libdir}/elementary/modules/test_entry/linux-gnu-i686-0.7.0/module.so
 %attr(755,root,root) %{_libdir}/elementary_testql.so
 %attr(755,root,root) %{_libdir}/libelementary%{svn}.so.0.7.0
 %attr(755,root,root) %ghost %{_libdir}/libelementary%{svn}.so.0
 
 %if %{with static_libs}
 %files static
+%defattr(644,root,root,755)
 %{_libdir}/elementary_testql.a
 %{_libdir}/libelementary.a
 %defattr(644,root,root,755)
