@@ -7,13 +7,13 @@
 #
 
 %define		svn		-ver-pre-svn-09
-%define		evas_ver	0.9.9.49898
+%define		evas_ver	1.0.0
 
 Summary:	Basic widget set
 Summary(pl.UTF-8):	Zestaw prostych widżetów
 Name:		elementary
 Version:	0.7.0.55225
-Release:	0.1
+Release:	0.2
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	http://download.enlightenment.org/snapshots/LATEST/%{name}-%{version}.tar.bz2
@@ -118,9 +118,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/elementary-0/elm_widget.h
 %dir %{_libdir}/edje/modules
 %dir %{_libdir}/edje/modules/elm
-%dir %{_libdir}/edje/modules/elm/linux-gnu-i686-1.0.0
-%{_libdir}/edje/modules/elm/linux-gnu-i686-1.0.0/module.la
-%{_libdir}/elementary/modules/test_entry/linux-gnu-i686-0.7.0/module.la
+%{_libdir}/edje/modules/elm/linux-gnu-%{_target_cpu}-1.0.0/module.la
+%{_libdir}/elementary/modules/test_entry/linux-gnu-%{_target_cpu}-0.7.0/module.la
 %{_libdir}/elementary_testql.la
 %{_libdir}/libelementary.la
 %{_libdir}/libelementary.so
@@ -133,8 +132,9 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/elementary/modules
 %dir %{_libdir}/elementary/modules/test_entry
 %dir %{_libdir}/elementary/modules/test_entry/linux-gnu-*
-%{_libdir}/edje/modules/elm/linux-gnu-i686-1.0.0/module.so
-%{_libdir}/elementary/modules/test_entry/linux-gnu-i686-0.7.0/module.so
+%dir %{_libdir}/edje/modules/elm/linux-gnu-%{_target_cpu}-1.0.0
+%{_libdir}/edje/modules/elm/linux-gnu-%{_target_cpu}-1.0.0/module.so
+%{_libdir}/elementary/modules/test_entry/linux-gnu-%{_target_cpu}-0.7.0/module.so
 %attr(755,root,root) %{_libdir}/elementary_testql.so
 %attr(755,root,root) %{_libdir}/libelementary%{svn}.so.0.7.0
 %attr(755,root,root) %ghost %{_libdir}/libelementary%{svn}.so.0
