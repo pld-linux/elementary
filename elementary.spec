@@ -1,5 +1,5 @@
 #
-# TODO: - BRs
+# TODO: - elementary_testql searches for modules in ../lib not _libdir
 #	- plugins in separate packages
 #
 # Conditional build:
@@ -7,13 +7,17 @@
 #
 
 %define		svn		-ver-pre-svn-09
+%define		ecore_ver	1.0.0
+%define		edje_ver	1.0.0
+%define		eet_ver 	1.4.0
+%define		eina_ver	1.0.0
 %define		evas_ver	1.0.0
 
 Summary:	Basic widget set
 Summary(pl.UTF-8):	Zestaw prostych widżetów
 Name:		elementary
 Version:	0.7.0.55225
-Release:	0.2
+Release:	0.3
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	http://download.enlightenment.org/snapshots/LATEST/%{name}-%{version}.tar.bz2
@@ -21,6 +25,12 @@ Source0:	http://download.enlightenment.org/snapshots/LATEST/%{name}-%{version}.t
 URL:		http://enlightenment.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	ecore-evas-devel >= %{ecore_ver}
+BuildRequires:	edje >= %{edje_ver}
+BuildRequires:	edje-devel >= %{edje_ver}
+BuildRequires:	eet-devel >= %{eet_ver}
+BuildRequires:	eina-devel >= %{eina_ver}
+BuildRequires:	evas-devel >= %{evas_ver}
 BuildRequires:	evas-loader-jpeg >= %{evas_ver}
 BuildRequires:	libtool
 Requires:	%{name}-libs = %{version}-%{release}
@@ -116,8 +126,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/elementary-0/Elementary.h
 %{_includedir}/elementary-0/Elementary_Cursor.h
 %{_includedir}/elementary-0/elm_widget.h
-%dir %{_libdir}/edje/modules
-%dir %{_libdir}/edje/modules/elm
 %{_libdir}/edje/modules/elm/linux-gnu-%{_target_cpu}-1.0.0/module.la
 %{_libdir}/elementary/modules/test_entry/linux-gnu-%{_target_cpu}-0.7.0/module.la
 %{_libdir}/elementary_testql.la
@@ -132,6 +140,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/elementary/modules
 %dir %{_libdir}/elementary/modules/test_entry
 %dir %{_libdir}/elementary/modules/test_entry/linux-gnu-*
+%dir %{_libdir}/edje/modules
+%dir %{_libdir}/edje/modules/elm
 %dir %{_libdir}/edje/modules/elm/linux-gnu-%{_target_cpu}-1.0.0
 %{_libdir}/edje/modules/elm/linux-gnu-%{_target_cpu}-1.0.0/module.so
 %{_libdir}/elementary/modules/test_entry/linux-gnu-%{_target_cpu}-0.7.0/module.so
