@@ -6,33 +6,40 @@
 %bcond_without	static_libs	# don't build static library
 #
 
-%define		svn		-ver-pre-svn-09
-%define		ecore_ver	1.0.0
-%define		edje_ver	1.0.0
-%define		eet_ver 	1.4.0
-%define		eina_ver	1.0.0
-%define		evas_ver	1.0.0
+%define		ecore_ver	1.1.0
+%define		edje_ver	1.1.0
+%define		eet_ver 	1.5.0
+%define		eina_ver	1.1.0
+%define		evas_ver	1.1.0
 
 Summary:	Basic widget set
 Summary(pl.UTF-8):	Zestaw prostych widżetów
 Name:		elementary
-Version:	0.7.0.55225
-Release:	0.3
-License:	LGPL v2.1+
+Version:	0.8.0.65643
+Release:	0.1
+License:	LGPL v2.1
 Group:		Libraries
 Source0:	http://download.enlightenment.org/snapshots/LATEST/%{name}-%{version}.tar.bz2
-# Source0-md5:	0c4460fe656c8dafc42abee76c33975c
+# Source0-md5:	0b25ded9ba00889e6924d86c420456a1
 URL:		http://enlightenment.org/
-BuildRequires:	autoconf
-BuildRequires:	automake
+BuildRequires:	ecore-con-devel >= %{ecore_ver}
+BuildRequires:	ecore-devel >= %{ecore_ver}
 BuildRequires:	ecore-evas-devel >= %{ecore_ver}
+BuildRequires:	ecore-file-devel >= %{ecore_ver}
+BuildRequires:	ecore-imf-devel >= %{ecore_ver}
+BuildRequires:	ecore-x-devel >= %{ecore_ver}
 BuildRequires:	edje >= %{edje_ver}
 BuildRequires:	edje-devel >= %{edje_ver}
+BuildRequires:	eio-devel
+BuildRequires:	emotion-devel
 BuildRequires:	eet-devel >= %{eet_ver}
 BuildRequires:	eina-devel >= %{eina_ver}
+BuildRequires:	ethumb-devel
 BuildRequires:	evas-devel >= %{evas_ver}
 BuildRequires:	evas-loader-jpeg >= %{evas_ver}
-BuildRequires:	libtool
+#BuildRequires:	ewebkit-devel
+BuildRequires:	gettext-devel >= 0.17
+BuildRequires:	pkgconfig >= 1:0.22
 Requires:	%{name}-libs = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -44,28 +51,48 @@ mobile touch-screen devices.
 Elementary - zestaw prostych, łatwych w użyciu widżetów, oparty na EFL
 dla urządzeń mobilnych.
 
-%package devel
-Summary:	Elementary header files
-Summary(pl.UTF-8):	Pliki nagłówkowe Elementary
-Group:		Development/Libraries
-Requires:	%{name}-libs = %{version}-%{release}
-
-%description devel
-Header files for Elementary.
-
-%description devel -l pl.UTF-8
-Pliki nagłówkowe Elementary.
-
 %package libs
 Summary:	Elementary library
 Summary(pl.UTF-8):	Bilblioteka Elementary
 Group:		Libraries
+Requires:	ecore >= %{ecore_ver}
+Requires:	ecore-con >= %{ecore_ver}
+Requires:	ecore-evas >= %{ecore_ver}
+Requires:	ecore-file >= %{ecore_ver}
+Requires:	ecore-imf >= %{ecore_ver}
+Requires:	ecore-x >= %{ecore_ver}
+Requires:	edje-libs >= %{edje_ver}
+Requires:	eet >= %{eet_ver}
+Requires:	eina >= %{eina_ver}
+Requires:	evas >= %{evas_ver}
 
 %description libs
 Elementary library files.
 
 %description libs -l pl.UTF-8
 Biblioteka Elementary.
+
+%package devel
+Summary:	Elementary header files
+Summary(pl.UTF-8):	Pliki nagłówkowe Elementary
+Group:		Development/Libraries
+Requires:	%{name}-libs = %{version}-%{release}
+Requires:	ecore-con-devel >= %{ecore_ver}
+Requires:	ecore-devel >= %{ecore_ver}
+Requires:	ecore-evas-devel >= %{ecore_ver}
+Requires:	ecore-file-devel >= %{ecore_ver}
+Requires:	ecore-imf-devel >= %{ecore_ver}
+Requires:	ecore-x-devel >= %{ecore_ver}
+Requires:	edje-devel >= %{edje_ver}
+Requires:	eet-devel >= %{eet_ver}
+Requires:	eina-devel >= %{eina_ver}
+Requires:	evas-devel >= %{evas_ver}
+
+%description devel
+Header files for Elementary.
+
+%description devel -l pl.UTF-8
+Pliki nagłówkowe Elementary.
 
 %package static
 Summary:	Static Elementary library
@@ -83,33 +110,34 @@ Statyczna biblioteka Elementary.
 %setup -q
 
 %build
-rm -rf autom4te.cache
-rm -f aclocal.m4 ltmain.sh
-%{__libtoolize}
-%{__aclocal} -I m4
-%{__autoconf}
-%{__autoheader}
-%{__automake}
 %configure \
+	--disable-silent-rules \
 	%{?with_static_libs:--enable-static}
 
-%{__make} V=1
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
+# icon is non-themed, so install in %{_pixmapsdir}
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
+	DESTDIR=$RPM_BUILD_ROOT \
+	icondir=%{_pixmapsdir}
+
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/edje/modules/elm/linux-gnu-*/*.la \
+	$RPM_BUILD_ROOT%{_libdir}/elementary/modules/*/linux-gnu-*/*.la
+
+%find_lang %{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post	-p /sbin/ldconfig
-%postun	-p /sbin/ldconfig
+%post	libs -p /sbin/ldconfig
+%postun	libs -p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS
+%doc AUTHORS README TODO
 %attr(755,root,root) %{_bindir}/elementary_config
 %attr(755,root,root) %{_bindir}/elementary_quicklaunch
 %attr(755,root,root) %{_bindir}/elementary_run
@@ -118,41 +146,39 @@ rm -rf $RPM_BUILD_ROOT
 %{_desktopdir}/elementary_config.desktop
 %{_desktopdir}/elementary_test.desktop
 %{_datadir}/elementary
-%{_iconsdir}/elementary.png
+%{_pixmapsdir}/elementary.png
+
+%files libs -f %{name}.lang
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libelementary-ver-pre-svn-09.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libelementary-ver-pre-svn-09.so.0
+%attr(755,root,root) %{_libdir}/elementary_testql.so
+%dir %{_libdir}/edje/modules/elm
+%dir %{_libdir}/edje/modules/elm/linux-gnu-*
+%attr(755,root,root) %{_libdir}/edje/modules/elm/linux-gnu-*/module.so
+%dir %{_libdir}/elementary
+%dir %{_libdir}/elementary/modules
+%dir %{_libdir}/elementary/modules/access_output
+%dir %{_libdir}/elementary/modules/access_output/linux-gnu-*
+%attr(755,root,root) %{_libdir}/elementary/modules/access_output/linux-gnu-*/module.so
+%dir %{_libdir}/elementary/modules/test_entry
+%dir %{_libdir}/elementary/modules/test_entry/linux-gnu-*
+%attr(755,root,root) %{_libdir}/elementary/modules/test_entry/linux-gnu-*/module.so
+%dir %{_libdir}/elementary/modules/test_map
+%dir %{_libdir}/elementary/modules/test_map/linux-gnu-*
+%attr(755,root,root) %{_libdir}/elementary/modules/test_map/linux-gnu-*/module.so
 
 %files devel
 %defattr(644,root,root,755)
-%dir %{_includedir}/elementary-0
-%{_includedir}/elementary-0/Elementary.h
-%{_includedir}/elementary-0/Elementary_Cursor.h
-%{_includedir}/elementary-0/elm_widget.h
-%{_libdir}/edje/modules/elm/linux-gnu-%{_target_cpu}-1.0.0/module.la
-%{_libdir}/elementary/modules/test_entry/linux-gnu-%{_target_cpu}-0.7.0/module.la
-%{_libdir}/elementary_testql.la
+%attr(755,root,root) %{_libdir}/libelementary.so
 %{_libdir}/libelementary.la
-%{_libdir}/libelementary.so
+%{_libdir}/elementary_testql.la
+%{_includedir}/elementary-0
 %{_pkgconfigdir}/elementary.pc
-
-%files libs
-%defattr(644,root,root,755)
-#%%attr(755,root,roo) %{_libdir}/edje/elm.so
-%dir %{_libdir}/elementary
-%dir %{_libdir}/elementary/modules
-%dir %{_libdir}/elementary/modules/test_entry
-%dir %{_libdir}/elementary/modules/test_entry/linux-gnu-*
-%dir %{_libdir}/edje/modules
-%dir %{_libdir}/edje/modules/elm
-%dir %{_libdir}/edje/modules/elm/linux-gnu-%{_target_cpu}-1.0.0
-%{_libdir}/edje/modules/elm/linux-gnu-%{_target_cpu}-1.0.0/module.so
-%{_libdir}/elementary/modules/test_entry/linux-gnu-%{_target_cpu}-0.7.0/module.so
-%attr(755,root,root) %{_libdir}/elementary_testql.so
-%attr(755,root,root) %{_libdir}/libelementary%{svn}.so.0.7.0
-%attr(755,root,root) %ghost %{_libdir}/libelementary%{svn}.so.0
 
 %if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/elementary_testql.a
 %{_libdir}/libelementary.a
-%defattr(644,root,root,755)
+%{_libdir}/elementary_testql.a
 %endif
