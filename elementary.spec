@@ -21,7 +21,7 @@ License:	LGPL v2.1
 Group:		Libraries
 Source0:	http://download.enlightenment.org/snapshots/LATEST/%{name}-%{version}.tar.bz2
 # Source0-md5:	0b25ded9ba00889e6924d86c420456a1
-URL:		http://enlightenment.org/
+URL:		http://trac.enlightenment.org/e/wiki/Elementary
 BuildRequires:	ecore-con-devel >= %{ecore_ver}
 BuildRequires:	ecore-devel >= %{ecore_ver}
 BuildRequires:	ecore-evas-devel >= %{ecore_ver}
