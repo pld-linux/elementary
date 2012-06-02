@@ -4,32 +4,38 @@
 #
 # Conditional build:
 %bcond_without	static_libs	# don't build static library
+%bcond_with	ewebkit		# Web (WebKit) support
 #
 
-%define		ecore_ver	1.1.0
-%define		edje_ver	1.1.0
-%define		eet_ver 	1.5.0
-%define		eina_ver	1.1.0
-%define		evas_ver	1.1.0
+%define		ecore_ver	1.2.0
+%define		edbus_ver	1.2.0
+%define		edje_ver	1.2.0
+%define		eet_ver 	1.6.0
+%define		efreet_ver 	1.2.0
+%define		eina_ver	1.2.0
+%define		evas_ver	1.2.0
 
 Summary:	Basic widget set
 Summary(pl.UTF-8):	Zestaw prostych widżetów
 Name:		elementary
-Version:	0.8.0.65643
+Version:	1.0.0
 Release:	0.1
 License:	LGPL v2.1
 Group:		Libraries
-Source0:	http://download.enlightenment.org/snapshots/LATEST/%{name}-%{version}.tar.bz2
-# Source0-md5:	0b25ded9ba00889e6924d86c420456a1
+Source0:	http://download.enlightenment.org/releases/%{name}-%{version}.tar.bz2
+# Source0-md5:	330fcba886bb6aced372012c59d10d28
 URL:		http://trac.enlightenment.org/e/wiki/Elementary
+BuildRequires:	e_dbus-devel >= %{edbus_ver}
 BuildRequires:	ecore-con-devel >= %{ecore_ver}
 BuildRequires:	ecore-devel >= %{ecore_ver}
 BuildRequires:	ecore-evas-devel >= %{ecore_ver}
+BuildRequires:	ecore-fb-devel >= %{ecore_ver}
 BuildRequires:	ecore-file-devel >= %{ecore_ver}
 BuildRequires:	ecore-imf-devel >= %{ecore_ver}
 BuildRequires:	ecore-x-devel >= %{ecore_ver}
 BuildRequires:	edje >= %{edje_ver}
 BuildRequires:	edje-devel >= %{edje_ver}
+BuildRequires:	efreet-devel >= %{efreet_ver}
 BuildRequires:	eio-devel
 BuildRequires:	emotion-devel
 BuildRequires:	eet-devel >= %{eet_ver}
@@ -37,9 +43,10 @@ BuildRequires:	eina-devel >= %{eina_ver}
 BuildRequires:	ethumb-devel
 BuildRequires:	evas-devel >= %{evas_ver}
 BuildRequires:	evas-loader-jpeg >= %{evas_ver}
-#BuildRequires:	ewebkit-devel
+%{?with_webkit:BuildRequires:	ewebkit-devel >= 0-0.r95983.1}
 BuildRequires:	gettext-devel >= 0.17
 BuildRequires:	pkgconfig >= 1:0.22
+# TODO: eweather, emap
 Requires:	%{name}-libs = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -58,11 +65,14 @@ Group:		Libraries
 Requires:	ecore >= %{ecore_ver}
 Requires:	ecore-con >= %{ecore_ver}
 Requires:	ecore-evas >= %{ecore_ver}
+Requires:	ecore-fb >= %{ecore_ver}
 Requires:	ecore-file >= %{ecore_ver}
 Requires:	ecore-imf >= %{ecore_ver}
 Requires:	ecore-x >= %{ecore_ver}
+Requires:	e_dbus-devel >= %{edbus_ver}
 Requires:	edje-libs >= %{edje_ver}
 Requires:	eet >= %{eet_ver}
+Requires:	efreet-devel >= %{efreet_ver}
 Requires:	eina >= %{eina_ver}
 Requires:	evas >= %{evas_ver}
 
@@ -112,6 +122,7 @@ Statyczna biblioteka Elementary.
 %build
 %configure \
 	--disable-silent-rules \
+	%{!?with_ewebkit:--disable-web} \
 	%{?with_static_libs:--enable-static}
 
 %{__make}
@@ -150,8 +161,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files libs -f %{name}.lang
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libelementary-ver-pre-svn-09.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libelementary-ver-pre-svn-09.so.0
+%attr(755,root,root) %{_libdir}/libelementary.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libelementary.so.1
 %attr(755,root,root) %{_libdir}/elementary_testql.so
 %dir %{_libdir}/edje/modules/elm
 %dir %{_libdir}/edje/modules/elm/linux-gnu-*
@@ -161,6 +172,9 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/elementary/modules/access_output
 %dir %{_libdir}/elementary/modules/access_output/linux-gnu-*
 %attr(755,root,root) %{_libdir}/elementary/modules/access_output/linux-gnu-*/module.so
+%dir %{_libdir}/elementary/modules/datetime_input_ctxpopup
+%dir %{_libdir}/elementary/modules/datetime_input_ctxpopup/linux-gnu-*
+%attr(755,root,root) %{_libdir}/elementary/modules/datetime_input_ctxpopup/linux-gnu-*/module.so
 %dir %{_libdir}/elementary/modules/test_entry
 %dir %{_libdir}/elementary/modules/test_entry/linux-gnu-*
 %attr(755,root,root) %{_libdir}/elementary/modules/test_entry/linux-gnu-*/module.so
@@ -173,7 +187,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libelementary.so
 %{_libdir}/libelementary.la
 %{_libdir}/elementary_testql.la
-%{_includedir}/elementary-0
+%{_includedir}/elementary-1
 %{_pkgconfigdir}/elementary.pc
 
 %if %{with static_libs}
