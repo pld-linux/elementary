@@ -1,29 +1,30 @@
 #
 # TODO: - elementary_testql searches for modules in ../lib not _libdir
 #	- plugins in separate packages
+#	- enable ewebkit when matching version is released
 #
 # Conditional build:
 %bcond_without	static_libs	# don't build static library
 %bcond_with	ewebkit		# Web (WebKit) support
 #
 
-%define		ecore_ver	1.2.0
-%define		edbus_ver	1.2.0
-%define		edje_ver	1.2.0
-%define		eet_ver 	1.6.0
-%define		efreet_ver 	1.2.0
-%define		eina_ver	1.2.0
-%define		evas_ver	1.2.0
+%define		ecore_ver	1.7.0
+%define		edbus_ver	1.7.0
+%define		edje_ver	1.7.0
+%define		eet_ver 	1.7.0
+%define		efreet_ver 	1.7.0
+%define		eina_ver	1.7.0
+%define		evas_ver	1.7.0
 
 Summary:	Basic widget set
 Summary(pl.UTF-8):	Zestaw prostych widżetów
 Name:		elementary
-Version:	1.0.1
-Release:	0.1
+Version:	1.7.0
+Release:	1
 License:	LGPL v2.1
 Group:		Libraries
 Source0:	http://download.enlightenment.org/releases/%{name}-%{version}.tar.bz2
-# Source0-md5:	860c1a2126865e9783cd15a1b758a927
+# Source0-md5:	d21610e65501591a69bb2c6c27bb3811
 URL:		http://trac.enlightenment.org/e/wiki/Elementary
 BuildRequires:	e_dbus-devel >= %{edbus_ver}
 BuildRequires:	ecore-con-devel >= %{ecore_ver}
@@ -32,6 +33,8 @@ BuildRequires:	ecore-evas-devel >= %{ecore_ver}
 BuildRequires:	ecore-fb-devel >= %{ecore_ver}
 BuildRequires:	ecore-file-devel >= %{ecore_ver}
 BuildRequires:	ecore-imf-devel >= %{ecore_ver}
+BuildRequires:	ecore-sdl-devel >= %{ecore_ver}
+BuildRequires:	ecore-wayland-devel >= %{ecore_ver}
 BuildRequires:	ecore-x-devel >= %{ecore_ver}
 BuildRequires:	edje >= %{edje_ver}
 BuildRequires:	edje-devel >= %{edje_ver}
@@ -68,6 +71,8 @@ Requires:	ecore-evas >= %{ecore_ver}
 Requires:	ecore-fb >= %{ecore_ver}
 Requires:	ecore-file >= %{ecore_ver}
 Requires:	ecore-imf >= %{ecore_ver}
+Requires:	ecore-sdl >= %{ecore_ver}
+Requires:	ecore-wayland >= %{ecore_ver}
 Requires:	ecore-x >= %{ecore_ver}
 Requires:	e_dbus-devel >= %{edbus_ver}
 Requires:	edje-libs >= %{edje_ver}
@@ -92,6 +97,8 @@ Requires:	ecore-devel >= %{ecore_ver}
 Requires:	ecore-evas-devel >= %{ecore_ver}
 Requires:	ecore-file-devel >= %{ecore_ver}
 Requires:	ecore-imf-devel >= %{ecore_ver}
+Requires:	ecore-sdl-devel >= %{ecore_ver}
+Requires:	ecore-wayland-devel >= %{ecore_ver}
 Requires:	ecore-x-devel >= %{ecore_ver}
 Requires:	edje-devel >= %{edje_ver}
 Requires:	eet-devel >= %{eet_ver}
