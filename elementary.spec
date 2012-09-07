@@ -20,7 +20,7 @@ Summary:	Basic widget set
 Summary(pl.UTF-8):	Zestaw prostych widżetów
 Name:		elementary
 Version:	1.7.0
-Release:	2
+Release:	3
 License:	LGPL v2.1
 Group:		Libraries
 Source0:	http://download.enlightenment.org/releases/%{name}-%{version}.tar.bz2
@@ -145,8 +145,8 @@ rm -rf $RPM_BUILD_ROOT
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/edje/modules/elm/linux-gnu-*/*.la \
 	$RPM_BUILD_ROOT%{_libdir}/elementary/modules/*/linux-gnu-*/*.la
 
-mv $RPM_BUILD_ROT%{_localedir}/az{_IR,}
-mv $RPM_BUILD_ROT%{_localedir}/ko{_KR,}
+mv $RPM_BUILD_ROOT%{_localedir}/az{_IR,}
+mv $RPM_BUILD_ROOT%{_localedir}/ko{_KR,}
 
 %find_lang %{name}
 
