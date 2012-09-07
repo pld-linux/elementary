@@ -65,7 +65,7 @@ dla urządzeń mobilnych.
 Summary:	Elementary library
 Summary(pl.UTF-8):	Bilblioteka Elementary
 Group:		Libraries
-Requires:	e_dbus-devel >= %{edbus_ver}
+Requires:	e_dbus >= %{edbus_ver}
 Requires:	ecore >= %{ecore_ver}
 Requires:	ecore-con >= %{ecore_ver}
 Requires:	ecore-evas >= %{ecore_ver}
@@ -77,7 +77,7 @@ Requires:	ecore-wayland >= %{ecore_ver}
 Requires:	ecore-x >= %{ecore_ver}
 Requires:	edje-libs >= %{edje_ver}
 Requires:	eet >= %{eet_ver}
-Requires:	efreet-devel >= %{efreet_ver}
+Requires:	efreet >= %{efreet_ver}
 Requires:	eina >= %{eina_ver}
 Requires:	evas >= %{evas_ver}
 
