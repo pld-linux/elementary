@@ -1,11 +1,10 @@
 #
 # TODO: - elementary_testql searches for modules in ../lib not _libdir
 #	- plugins in separate packages
-#	- enable ewebkit when matching version is released
 #
 # Conditional build:
 %bcond_without	static_libs	# don't build static library
-%bcond_with	ewebkit		# Web (WebKit) support
+%bcond_without	ewebkit		# Web (WebKit) support
 #
 
 %define		ecore_ver	1.7.0
@@ -19,12 +18,12 @@
 Summary:	Basic widget set
 Summary(pl.UTF-8):	Zestaw prostych widżetów
 Name:		elementary
-Version:	1.7.0
-Release:	4
+Version:	1.7.1
+Release:	1
 License:	LGPL v2.1
 Group:		Libraries
 Source0:	http://download.enlightenment.org/releases/%{name}-%{version}.tar.bz2
-# Source0-md5:	d21610e65501591a69bb2c6c27bb3811
+# Source0-md5:	9f43658594d8e837773c8b6573b654dd
 URL:		http://trac.enlightenment.org/e/wiki/Elementary
 BuildRequires:	e_dbus-devel >= %{edbus_ver}
 BuildRequires:	ecore-con-devel >= %{ecore_ver}
@@ -46,7 +45,7 @@ BuildRequires:	emotion-devel
 BuildRequires:	ethumb-devel
 BuildRequires:	evas-devel >= %{evas_ver}
 BuildRequires:	evas-loader-jpeg >= %{evas_ver}
-%{?with_webkit:BuildRequires:	ewebkit-devel >= 0-0.r95983.1}
+%{?with_webkit:BuildRequires:	ewebkit-devel >= 0-0.r127150.1}
 BuildRequires:	gettext-devel >= 0.17
 BuildRequires:	pkgconfig >= 1:0.22
 # TODO: eweather, emap
