@@ -18,12 +18,12 @@
 Summary:	Basic widget set
 Summary(pl.UTF-8):	Zestaw prostych widżetów
 Name:		elementary
-Version:	1.7.2
+Version:	1.7.3
 Release:	1
 License:	LGPL v2.1
 Group:		Libraries
 Source0:	http://download.enlightenment.org/releases/%{name}-%{version}.tar.bz2
-# Source0-md5:	3d52e4b8a3183010315c5c1de83adbc0
+# Source0-md5:	804896c059c29d60964150cd5cb582e0
 URL:		http://trac.enlightenment.org/e/wiki/Elementary
 BuildRequires:	e_dbus-devel >= %{edbus_ver}
 BuildRequires:	ecore-con-devel >= %{ecore_ver}
