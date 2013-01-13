@@ -7,23 +7,23 @@
 %bcond_without	ewebkit		# Web (WebKit) support
 #
 
-%define		ecore_ver	1.7.0
-%define		edbus_ver	1.7.0
-%define		edje_ver	1.7.0
-%define		eet_ver 	1.7.0
-%define		efreet_ver 	1.7.0
-%define		eina_ver	1.7.0
-%define		evas_ver	1.7.0
+%define		ecore_ver	1.7.5
+%define		edbus_ver	1.7.5
+%define		edje_ver	1.7.5
+%define		eet_ver 	1.7.5
+%define		efreet_ver 	1.7.5
+%define		eina_ver	1.7.5
+%define		evas_ver	1.7.5
 
 Summary:	Basic widget set
 Summary(pl.UTF-8):	Zestaw prostych widżetów
 Name:		elementary
-Version:	1.7.3
+Version:	1.7.5
 Release:	1
 License:	LGPL v2.1
 Group:		Libraries
 Source0:	http://download.enlightenment.org/releases/%{name}-%{version}.tar.bz2
-# Source0-md5:	804896c059c29d60964150cd5cb582e0
+# Source0-md5:	7f2cbea027fba8b58c41aaacfe68c155
 URL:		http://trac.enlightenment.org/e/wiki/Elementary
 BuildRequires:	e_dbus-devel >= %{edbus_ver}
 BuildRequires:	ecore-con-devel >= %{ecore_ver}
