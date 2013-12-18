@@ -5,10 +5,10 @@
 %bcond_without	fb		# Ecore FB support
 %bcond_without	sdl		# Ecore SDL support
 %bcond_with	wayland		# Ecore Wayland support
-%bcond_with	elocation	# Elocation support [not available yet in PLD]
+%bcond_without	elocation	# Elocation support
 %bcond_with	emap		# Emap support [not available yet in PLD]
-%bcond_with	eweather	# Eweather support [not available yet in PLD]
-%bcond_with	ewebkit		# Web (WebKit) support
+%bcond_without	eweather	# Eweather support
+%bcond_without	ewebkit		# Web (WebKit) support
 #
 
 %define		efl_ver		1.8.0
@@ -16,12 +16,12 @@
 Summary:	Basic widget set
 Summary(pl.UTF-8):	Zestaw prostych widżetów
 Name:		elementary
-Version:	1.8.0
+Version:	1.8.1
 Release:	1
 License:	LGPL v2.1
 Group:		Libraries
 Source0:	http://download.enlightenment.org/rel/libs/elementary/%{name}-%{version}.tar.bz2
-# Source0-md5:	6c3c4086320d8403a6752d70d8a7b023
+# Source0-md5:	983d4221c445e2679a1ea5c641961e1f
 URL:		http://trac.enlightenment.org/e/wiki/Elementary
 BuildRequires:	ecore-con-devel >= %{efl_ver}
 BuildRequires:	ecore-devel >= %{efl_ver}
@@ -47,9 +47,9 @@ BuildRequires:	eo-devel >= %{efl_ver}
 BuildRequires:	ethumb-devel >= %{efl_ver}
 BuildRequires:	evas-devel >= %{efl_ver}
 BuildRequires:	evas-loader-jpeg >= %{evas_ver}
-%{?with_eweather:BuildRequires:	eweather-devel}
 %{?with_webkit:BuildRequires:	ewebkit-devel >= 0-0.r127150.1}
 BuildRequires:	gettext-devel >= 0.17
+%{?with_eweather:BuildRequires:	libeweather-devel}
 BuildRequires:	pkgconfig >= 1:0.22
 Requires:	%{name}-libs = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -83,12 +83,10 @@ Requires:	eina >= %{efl_ver}
 Requires:	eio >= %{efl_ver}
 Requires:	eldbus >= %{efl_ver}
 %{?with_elocation:Requires:	elocation >= 0.1.0}
-%{?with_emap:Requires:	emap}
 Requires:	emotion >= %{efl_ver}
 Requires:	eo >= %{efl_ver}
 Requires:	ethumb-libs >= %{efl_ver}
 Requires:	evas >= %{efl_ver}
-%{?with_eweather:Requires:	eweather}
 %{?with_webkit:Requires:	ewebkit >= 0-0.r127150.1}
 
 %description libs
@@ -125,8 +123,8 @@ Requires:	eo-devel >= %{efl_ver}
 Requires:	ethumb-devel >= %{efl_ver}
 Requires:	evas-devel >= %{efl_ver}
 Requires:	evas-loader-jpeg >= %{evas_ver}
-%{?with_eweather:Requires:	eweather-devel}
 %{?with_webkit:Requires:	ewebkit-devel >= 0-0.r127150.1}
+%{?with_eweather:Requires:	libeweather-devel}
 
 %description devel
 Header files for Elementary.
