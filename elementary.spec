@@ -11,17 +11,17 @@
 %bcond_without	ewebkit		# Web (WebKit) support
 #
 
-%define		efl_ver		1.8.0
+%define		efl_ver		1.9.1
 
 Summary:	Basic widget set
 Summary(pl.UTF-8):	Zestaw prostych widżetów
 Name:		elementary
-Version:	1.8.4
-Release:	2
+Version:	1.9.1
+Release:	1
 License:	LGPL v2.1
 Group:		Libraries
 Source0:	http://download.enlightenment.org/rel/libs/elementary/%{name}-%{version}.tar.bz2
-# Source0-md5:	37f90ae9a81a1482565688f8620150bd
+# Source0-md5:	8af53da8094e8badfbf5fd6735fb12f7
 URL:		http://trac.enlightenment.org/e/wiki/Elementary
 BuildRequires:	ecore-con-devel >= %{efl_ver}
 BuildRequires:	ecore-devel >= %{efl_ver}
@@ -53,6 +53,9 @@ BuildRequires:	gettext-devel >= 0.17
 BuildRequires:	pkgconfig >= 1:0.22
 Requires:	%{name}-libs = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define		efl_arch_tag	v-1.9
+%define		elm_arch_tag	v-%{version}
 
 %description
 Elementary - a basic widget set that is easy to use based on EFL for
@@ -173,8 +176,8 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT \
 	icondir=%{_pixmapsdir}
 
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/edje/modules/elm/linux-gnu-*/*.la \
-	$RPM_BUILD_ROOT%{_libdir}/elementary/modules/*/linux-gnu-*/*.la
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/edje/modules/elm/%{efl_arch_tag}/*.la \
+	$RPM_BUILD_ROOT%{_libdir}/elementary/modules/*/%{elm_arch_tag}/*.la
 
 mv $RPM_BUILD_ROOT%{_localedir}/ko{_KR,}
 # obsoleted by pkg-config
@@ -206,26 +209,26 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libelementary.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libelementary.so.1
 %dir %{_libdir}/edje/modules/elm
-%dir %{_libdir}/edje/modules/elm/linux-gnu-*
-%attr(755,root,root) %{_libdir}/edje/modules/elm/linux-gnu-*/module.so
+%dir %{_libdir}/edje/modules/elm/%{efl_arch_tag}
+%attr(755,root,root) %{_libdir}/edje/modules/elm/%{efl_arch_tag}/module.so
 %dir %{_libdir}/elementary
 %dir %{_libdir}/elementary/modules
 %dir %{_libdir}/elementary/modules/access_output
-%dir %{_libdir}/elementary/modules/access_output/linux-gnu-*
-%attr(755,root,root) %{_libdir}/elementary/modules/access_output/linux-gnu-*/module.so
+%dir %{_libdir}/elementary/modules/access_output/%{elm_arch_tag}
+%attr(755,root,root) %{_libdir}/elementary/modules/access_output/%{elm_arch_tag}/module.so
 %dir %{_libdir}/elementary/modules/datetime_input_ctxpopup
-%dir %{_libdir}/elementary/modules/datetime_input_ctxpopup/linux-gnu-*
-%attr(755,root,root) %{_libdir}/elementary/modules/datetime_input_ctxpopup/linux-gnu-*/module.so
+%dir %{_libdir}/elementary/modules/datetime_input_ctxpopup/%{elm_arch_tag}
+%attr(755,root,root) %{_libdir}/elementary/modules/datetime_input_ctxpopup/%{elm_arch_tag}/module.so
 %dir %{_libdir}/elementary/modules/prefs
-%dir %{_libdir}/elementary/modules/prefs/linux-gnu-*
-%attr(755,root,root) %{_libdir}/elementary/modules/prefs/linux-gnu-*/module.so
-%{_libdir}/elementary/modules/prefs/linux-gnu-*/elm_prefs_swallow.edj
+%dir %{_libdir}/elementary/modules/prefs/%{elm_arch_tag}
+%attr(755,root,root) %{_libdir}/elementary/modules/prefs/%{elm_arch_tag}/module.so
+%{_libdir}/elementary/modules/prefs/%{elm_arch_tag}/elm_prefs_swallow.edj
 %dir %{_libdir}/elementary/modules/test_entry
-%dir %{_libdir}/elementary/modules/test_entry/linux-gnu-*
-%attr(755,root,root) %{_libdir}/elementary/modules/test_entry/linux-gnu-*/module.so
+%dir %{_libdir}/elementary/modules/test_entry/%{elm_arch_tag}
+%attr(755,root,root) %{_libdir}/elementary/modules/test_entry/%{elm_arch_tag}/module.so
 %dir %{_libdir}/elementary/modules/test_map
-%dir %{_libdir}/elementary/modules/test_map/linux-gnu-*
-%attr(755,root,root) %{_libdir}/elementary/modules/test_map/linux-gnu-*/module.so
+%dir %{_libdir}/elementary/modules/test_map/%{elm_arch_tag}
+%attr(755,root,root) %{_libdir}/elementary/modules/test_map/%{elm_arch_tag}/module.so
 
 %files devel
 %defattr(644,root,root,755)
