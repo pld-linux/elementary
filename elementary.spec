@@ -11,7 +11,7 @@
 %bcond_without	ewebkit		# Web (WebKit) support
 #
 
-%define		efl_ver		1.9.1
+%define		efl_ver		1.9.2
 
 Summary:	Basic widget set
 Summary(pl.UTF-8):	Zestaw prostych widżetów
