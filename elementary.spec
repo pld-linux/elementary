@@ -16,12 +16,12 @@
 Summary:	Basic widget set
 Summary(pl.UTF-8):	Zestaw prostych widżetów
 Name:		elementary
-Version:	1.9.1
+Version:	1.9.2
 Release:	1
 License:	LGPL v2.1
 Group:		Libraries
 Source0:	http://download.enlightenment.org/rel/libs/elementary/%{name}-%{version}.tar.bz2
-# Source0-md5:	8af53da8094e8badfbf5fd6735fb12f7
+# Source0-md5:	0709699bd3b92660b946137f45c57add
 URL:		http://trac.enlightenment.org/e/wiki/Elementary
 BuildRequires:	ecore-con-devel >= %{efl_ver}
 BuildRequires:	ecore-devel >= %{efl_ver}
