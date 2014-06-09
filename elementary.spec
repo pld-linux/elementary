@@ -2,6 +2,7 @@
 #
 # Conditional build:
 %bcond_without	static_libs	# don't build static library
+%bcond_without	drm		# Ecore DRM support
 %bcond_without	fb		# Ecore FB support
 %bcond_without	sdl		# Ecore SDL support
 %bcond_with	wayland		# Ecore Wayland support
@@ -11,20 +12,21 @@
 %bcond_without	ewebkit		# Web (WebKit) support
 #
 
-%define		efl_ver		1.9.5
+%define		efl_ver		1.10.0
 
 Summary:	Basic widget set
 Summary(pl.UTF-8):	Zestaw prostych widżetów
 Name:		elementary
-Version:	1.9.5
+Version:	1.10.0
 Release:	1
 License:	LGPL v2.1
 Group:		Libraries
 Source0:	http://download.enlightenment.org/rel/libs/elementary/%{name}-%{version}.tar.bz2
-# Source0-md5:	9ee725983c7d5a3ccf0425b2cea2d462
+# Source0-md5:	5295959bb44e79104ddfd4ba2d30d0c8
 URL:		http://trac.enlightenment.org/e/wiki/Elementary
 BuildRequires:	ecore-con-devel >= %{efl_ver}
 BuildRequires:	ecore-devel >= %{efl_ver}
+%{?with_drm:BuildRequires:	ecore-drm-devel >= %{efl_ver}}
 BuildRequires:	ecore-evas-devel >= %{efl_ver}
 %{?with_fb:BuildRequires:	ecore-fb-devel >= %{efl_ver}}
 BuildRequires:	ecore-file-devel >= %{efl_ver}
@@ -44,6 +46,7 @@ BuildRequires:	eldbus-devel >= %{efl_ver}
 %{?with_emap:BuildRequires:	emap-devel}
 BuildRequires:	emotion-devel >= %{efl_ver}
 BuildRequires:	eo-devel >= %{efl_ver}
+BuildRequires:	eolian-devel >= %{efl_ver}
 BuildRequires:	ethumb-devel >= %{efl_ver}
 BuildRequires:	evas-devel >= %{efl_ver}
 BuildRequires:	evas-loader-jpeg >= %{evas_ver}
@@ -54,7 +57,7 @@ BuildRequires:	pkgconfig >= 1:0.22
 Requires:	%{name}-libs = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		efl_arch_tag	v-1.9
+%define		efl_arch_tag	v-1.10
 %define		elm_arch_tag	v-%{version}
 
 %description
@@ -71,6 +74,7 @@ Summary(pl.UTF-8):	Bilblioteka Elementary
 Group:		Libraries
 Requires:	ecore-con >= %{efl_ver}
 Requires:	ecore >= %{efl_ver}
+%{?with_drm:Requires:	ecore-drm >= %{efl_ver}}
 Requires:	ecore-evas >= %{efl_ver}
 %{?with_fb:Requires:	ecore-fb >= %{efl_ver}}
 Requires:	ecore-file >= %{efl_ver}
@@ -105,6 +109,7 @@ Group:		Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	ecore-con-devel >= %{efl_ver}
 Requires:	ecore-devel >= %{efl_ver}
+%{?with_drm:Requires:	ecore-drm-devel >= %{efl_ver}}
 Requires:	ecore-evas-devel >= %{efl_ver}
 %{?with_fb:Requires:	ecore-fb-devel >= %{efl_ver}}
 Requires:	ecore-file-devel >= %{efl_ver}
@@ -147,12 +152,25 @@ Static Elementary library.
 %description static -l pl.UTF-8
 Statyczna biblioteka Elementary.
 
+%package -n eolian-elementary
+Summary:	Eolian API for Elementary library
+Summary(pl.UTF-8):	API Eolian dla biblioteki Elementary
+Group:		Development/Libraries
+Requires:	eolian >= %{efl_ver}
+
+%description -n eolian-elementary
+Eolian API for Elementary library.
+
+%description -n eolian-elementary -l pl.UTF-8
+API Eolian dla biblioteki Elementary.
+
 %prep
 %setup -q
 
 %build
 %configure \
 	--disable-ecore-cocoa \
+	%{!?with_drm:--disable-ecore-drm} \
 	%{!?with_fb:--disable-ecore-fb} \
 	--disable-ecore-psl1ght \
 	%{!?with_sdl:--disable-ecore-sdl} \
@@ -243,3 +261,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_libdir}/libelementary.a
 %endif
+
+%files -n eolian-elementary
+%defattr(644,root,root,755)
+%{_datadir}/eolian/include/elementary-1
