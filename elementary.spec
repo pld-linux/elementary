@@ -12,17 +12,17 @@
 %bcond_without	ewebkit		# Web (WebKit) support
 #
 
-%define		efl_ver		1.10.1
+%define		efl_ver		1.10.2
 
 Summary:	Basic widget set
 Summary(pl.UTF-8):	Zestaw prostych widżetów
 Name:		elementary
-Version:	1.10.1
+Version:	1.10.2
 Release:	1
 License:	LGPL v2.1
 Group:		Libraries
 Source0:	http://download.enlightenment.org/rel/libs/elementary/%{name}-%{version}.tar.bz2
-# Source0-md5:	5d3049d39927ea6d759337a3ee167e25
+# Source0-md5:	371fca4682ad94816e9adeaaa98a52b8
 URL:		http://trac.enlightenment.org/e/wiki/Elementary
 BuildRequires:	ecore-con-devel >= %{efl_ver}
 BuildRequires:	ecore-devel >= %{efl_ver}
