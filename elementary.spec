@@ -46,7 +46,7 @@ BuildRequires:	ethumb-devel
 BuildRequires:	evas-devel >= %{evas_ver}
 BuildRequires:	evas-loader-jpeg >= %{evas_ver}
 %{?with_webkit:BuildRequires:	ewebkit-devel >= 0-0.r127150.1}
-BuildRequires:	gettext-devel >= 0.17
+BuildRequires:	gettext-tools >= 0.17
 BuildRequires:	pkgconfig >= 1:0.22
 # TODO: eweather, emap
 Requires:	%{name}-libs = %{version}-%{release}
