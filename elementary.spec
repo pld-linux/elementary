@@ -49,7 +49,7 @@ BuildRequires:	eo-devel >= %{efl_ver}
 BuildRequires:	eolian-devel >= %{efl_ver}
 BuildRequires:	ethumb-devel >= %{efl_ver}
 BuildRequires:	evas-devel >= %{efl_ver}
-BuildRequires:	evas-loader-jpeg >= %{evas_ver}
+BuildRequires:	evas-loader-jpeg >= %{efl_ver}
 %{?with_webkit:BuildRequires:	ewebkit-devel >= 0-0.r127150.1}
 BuildRequires:	gettext-devel >= 0.17
 %{?with_eweather:BuildRequires:	libeweather-devel}
@@ -130,7 +130,7 @@ Requires:	emotion-devel >= %{efl_ver}
 Requires:	eo-devel >= %{efl_ver}
 Requires:	ethumb-devel >= %{efl_ver}
 Requires:	evas-devel >= %{efl_ver}
-Requires:	evas-loader-jpeg >= %{evas_ver}
+Requires:	evas-loader-jpeg >= %{efl_ver}
 %{?with_webkit:Requires:	ewebkit-devel >= 0-0.r127150.1}
 %{?with_eweather:Requires:	libeweather-devel}
 
