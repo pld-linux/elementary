@@ -5,7 +5,7 @@
 %bcond_without	drm		# Ecore DRM support
 %bcond_without	fb		# Ecore FB support
 %bcond_without	sdl		# Ecore SDL support
-%bcond_with	wayland		# Ecore Wayland support
+%bcond_without	wayland		# Ecore Wayland support
 %bcond_without	elocation	# Elocation support
 %bcond_with	emap		# Emap support [not available yet in PLD]
 %bcond_without	eweather	# Eweather support
